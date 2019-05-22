@@ -1,0 +1,65 @@
+<html>
+  <head>
+    <script src="https://unpkg.com/babel-standalone@6/babel.min.js"></script>
+    <script src='https://cdnjs.cloudflare.com/ajax/libs/Faker/3.1.0/faker.js'></script>
+    <script src="https://unpkg.com/react@16/umd/react.development.js" crossorigin></script>
+    <script src="https://unpkg.com/react-dom@16/umd/react-dom.development.js" crossorigin></script>
+  </head>
+  <body>
+    <div id='root'></div>
+    <script type='text/babel'>
+
+      const Content = (props)=> {
+        return (
+          <div>
+            <div>Heres the content</div>
+            <div>
+              { props.text }
+            </div>
+          </div>
+        );
+      };
+
+      const Title = (props)=> {
+        return (
+          <h1>
+            { props.text }
+            <hr />
+          </h1>
+        );
+        //return React.createElement('h1', null, props.text});
+      }
+
+
+      class App extends React.Component{
+        constructor(){
+          super();
+          const state = {
+            title: faker.random.words(5),
+            content: faker.random.words(50) 
+          };
+          this.state = state;
+          this.randomizeState = this.randomizeState.bind(this);
+        }
+        randomizeState(){
+          console.log(this);
+          const state = {
+            title: faker.random.words(5),
+            content: faker.random.words(50) 
+          };
+          this.setState(state);
+        }
+        render(){
+          return (
+            <div onClick={ this.randomizeState }>
+              <Title text={ this.state.title } />
+              <Content text={ this.state.content } />
+            </div>
+          );
+        }
+      }
+      const root = document.querySelector('#root');
+ReactDOM.render(<App />, root);
+    </script>
+  </body>
+</html>
